@@ -79,6 +79,7 @@ public class WordScramble : MonoBehaviour
     void Start()
     {
         ShowScramble(currentWord);
+        result.textTotalScore.text = result.totalScore.ToString();
     }
 
     // Update is called once per frame
@@ -201,7 +202,7 @@ public class WordScramble : MonoBehaviour
         if (word == words[currentWord].word)
         {
             currentWord++;
-            result.totalScore = Mathf.RoundToInt(timeLimit);
+            result.totalScore += Mathf.RoundToInt(timeLimit);
             result.textTotalScore.text = result.totalScore.ToString();
 
             StopCoroutine(TimeLimit());
