@@ -8,6 +8,7 @@ public class Result
 {
     public int totalScore = 0;
 
+
     [Header("REF IU")]
     public Text textTime;
     public Text textTotalScore;
@@ -70,6 +71,8 @@ public class WordScramble : MonoBehaviour
 
     public static WordScramble main;
 
+    private float totalScore;
+
     private void Awake()
     {
         main = this;
@@ -86,6 +89,9 @@ public class WordScramble : MonoBehaviour
     void Update()
     {
         RepositionObject();
+
+        totalScore = Mathf.Lerp(totalScore, result.totalScore, Time.deltaTime * 5);
+        result.textTotalScore.text = Mathf.RoundToInt(totalScore).ToString();
     }
 
     
@@ -203,9 +209,8 @@ public class WordScramble : MonoBehaviour
         {
             currentWord++;
             result.totalScore += Mathf.RoundToInt(timeLimit);
-            result.textTotalScore.text = result.totalScore.ToString();
-
-            StopCoroutine(TimeLimit());
+           
+            //StopCoroutine(TimeLimit());
 
             ShowScramble(currentWord);
         }
@@ -228,8 +233,6 @@ public class WordScramble : MonoBehaviour
             result.textTime.text = Mathf.RoundToInt(timeLimit).ToString();
             yield return null;
         }
-
-        result.textTotalScore.text = result.totalScore.ToString();
         CheckWord();
     }
 }
