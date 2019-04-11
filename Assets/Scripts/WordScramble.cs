@@ -45,6 +45,8 @@ public class WordScramble : MonoBehaviour
     public float space;
 
     List<CharObject> charObjects = new List<CharObject>();
+    CharObject firstSelected;
+
 
     public int currentWord;
 
@@ -58,17 +60,119 @@ public class WordScramble : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        ShowScramble(currentWord);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        RepositionObject();
     }
 
-    void RepositionObject()
+    
+    private void RepositionObject()
     {
+        if(charObjects.Count == 0)
+        {
+            return;
+        }
 
+        float center = (charObjects.Count - 1 )/ 2;
+        for(int i = 0; i < charObjects.Count; i++)
+        {
+            charObjects[i].rectTransform.anchoredPosition
+                = new Vector2((i - center) * space, 0);
+            charObjects[i].index = i;
+        }
+    }
+
+    /// <summary>
+    /// Show a random word to the screen
+    /// </summary>
+    public void ShowScramble()
+    {
+        ShowScramble(Random.Range(0, words.Length - 1));
+    }
+
+    /// <summary>
+    ///  Show word from collection with desired index
+    /// </summary>
+    /// <param name="index"> index of the element</param>
+    public void ShowScramble(int index)
+    {
+        charObjects.Clear();
+        foreach(Transform child in container)
+        {
+            Destroy(child.gameObject);
+        }
+
+        if(index > words.Length - 1)
+        {
+            Debug.LogError("Index out of range. Please enter range between 0 to " + (words.Length - 1).ToString());
+            return;
+        }
+
+        char[] chars = words[index].GetString().ToCharArray();
+        foreach(char c in chars)
+        {
+            CharObject clone = Instantiate(prefab.gameObject).GetComponent<CharObject>();
+            clone.transform.SetParent(container);
+
+            charObjects.Add(clone.Init(c));
+        }
+
+        currentWord = index;
+    }
+
+    public void Swap(int indexA, int indexB)
+    {
+        CharObject tmpA = charObjects[indexA];
+
+        charObjects[indexA] = charObjects[indexB];
+        charObjects[indexB] = tmpA;
+
+        charObjects[indexA].transform.SetAsLastSibling();
+        charObjects[indexB].transform.SetAsLastSibling();
+    }
+
+    public void Select(CharObject charObject)
+    {
+        if (firstSelected)
+        {
+            Swap(firstSelected.index, charObject.index);
+
+            //Unselect
+            firstSelected = null;
+            firstSelected.Select();
+            charObject.Select();
+        }
+        else
+        {
+            firstSelected = charObject;
+        }
+    }
+
+    public void UnSelect()
+    {
+        firstSelected = null;
+    }
+
+    public bool CheckWord()
+    {
+        string word = "";
+        foreach(CharObject charObject in charObjects)
+        {
+            word += charObject.character;
+        }
+
+        if(word == words[currentWord].word)
+        {
+            currentWord++;
+            ShowScramble(currentWord);
+
+            return true;
+        }
+
+        return false;
     }
 }
