@@ -1,7 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections.Generic;
+using UnityEngine.UI;
+
+[System.Serializable]
+public class Result
+{
+    public int totalScore = 0;
+
+    [Header("REF IU")]
+    public Text textTime;
+    public Text textTotalScore;
+}
+
 
 [System.Serializable]
 public class Word
@@ -9,6 +20,9 @@ public class Word
     public string word;
     [Header("Leave empty if you want randomized")]
     public string desiredRandom;
+
+    [Space(10)]
+    public float timeLimit;
 
     public string GetString()
     {
@@ -38,6 +52,9 @@ public class Word
 public class WordScramble : MonoBehaviour
 {
     public Word[] words;
+
+    [Space(10)]
+    public Result result;
 
     [Header("UI REFERENCE")]
     public CharObject prefab;
@@ -107,7 +124,7 @@ public class WordScramble : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-
+        //WORDS FINISHED
         if(index > words.Length - 1)
         {
             Debug.LogError("Index out of range. Please enter range between 0 to " + (words.Length - 1).ToString());
@@ -124,6 +141,7 @@ public class WordScramble : MonoBehaviour
         }
 
         currentWord = index;
+        StartCoroutine(TimeLimit());
     }
 
     public void Swap(int indexA, int indexB)
@@ -166,16 +184,51 @@ public class WordScramble : MonoBehaviour
     IEnumerator CoCheckWord()
     {
         yield return new WaitForSeconds(0.5f);
+
         string word = "";
         foreach (CharObject charObject in charObjects)
         {
             word += charObject.character;
         }
 
-        if (word == words[currentWord].word)
+        if(timeLimit <= 0)
         {
             currentWord++;
             ShowScramble(currentWord);
+            yield break;
         }
+
+        if (word == words[currentWord].word)
+        {
+            currentWord++;
+            result.totalScore = Mathf.RoundToInt(timeLimit);
+            result.textTotalScore.text = result.totalScore.ToString();
+
+            StopCoroutine(TimeLimit());
+
+            ShowScramble(currentWord);
+        }
+    }
+    float timeLimit;
+    IEnumerator TimeLimit()
+    {
+        timeLimit = words[currentWord].timeLimit;
+        result.textTime.text = Mathf.RoundToInt(timeLimit).ToString();
+
+        int myWord = currentWord;
+
+        yield return new WaitForSeconds(1f);
+
+        while(timeLimit > 0)
+        {
+            if(myWord != currentWord){ yield break; }
+
+            timeLimit -= Time.deltaTime;
+            result.textTime.text = Mathf.RoundToInt(timeLimit).ToString();
+            yield return null;
+        }
+
+        result.textTotalScore.text = result.totalScore.ToString();
+        CheckWord();
     }
 }
