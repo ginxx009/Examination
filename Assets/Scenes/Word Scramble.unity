@@ -555,6 +555,7 @@ MonoBehaviour:
   prefab: {fileID: 98217377}
   container: {fileID: 1834439935}
   space: 100
+  lerpSpeed: 5
   currentWord: 0
 --- !u!4 &1756576722
 Transform:

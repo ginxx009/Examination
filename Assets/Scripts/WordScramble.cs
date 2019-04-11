@@ -43,6 +43,7 @@ public class WordScramble : MonoBehaviour
     public CharObject prefab;
     public Transform container;
     public float space;
+    public float lerpSpeed = 5f;
 
     List<CharObject> charObjects = new List<CharObject>();
     CharObject firstSelected;
@@ -81,7 +82,8 @@ public class WordScramble : MonoBehaviour
         for(int i = 0; i < charObjects.Count; i++)
         {
             charObjects[i].rectTransform.anchoredPosition
-                = new Vector2((i - center) * space, 0);
+                = Vector2.Lerp(charObjects[i].rectTransform.anchoredPosition,
+                new Vector2((i - center) * space, 0), lerpSpeed * Time.deltaTime);
             charObjects[i].index = i;
         }
     }
