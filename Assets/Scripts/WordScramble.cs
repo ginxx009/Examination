@@ -133,6 +133,7 @@ public class WordScramble : MonoBehaviour
 
         charObjects[indexA].transform.SetAsLastSibling();
         charObjects[indexB].transform.SetAsLastSibling();
+        CheckWord();
     }
 
     public void Select(CharObject charObject)
@@ -141,8 +142,6 @@ public class WordScramble : MonoBehaviour
         {
             Swap(firstSelected.index, charObject.index);
 
-            //Unselect
-            firstSelected = null;
             firstSelected.Select();
             charObject.Select();
         }

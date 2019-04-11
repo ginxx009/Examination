@@ -191,7 +191,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 98217375}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 98217377}
+        m_MethodName: Select
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &98217375
@@ -245,10 +256,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 0
   text: {fileID: 1997036071}
+  image: {fileID: 98217375}
   rectTransform: {fileID: 98217373}
   index: 0
-  normalColor: {r: 1, g: 1, b: 1, a: 0}
-  selectedColor: {r: 0.9433962, g: 0.9136775, b: 0.4227483, a: 0}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  selectedColor: {r: 0.9433962, g: 0.9136775, b: 0.4227483, a: 1}
 --- !u!1 &549839707
 GameObject:
   m_ObjectHideFlags: 0
@@ -592,7 +604,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -0.000030517578, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -1, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1834439936
