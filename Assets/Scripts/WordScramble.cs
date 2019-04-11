@@ -156,22 +156,24 @@ public class WordScramble : MonoBehaviour
         firstSelected = null;
     }
 
-    public bool CheckWord()
+    public void CheckWord()
     {
+        StartCoroutine(CoCheckWord());
+    }
+
+    IEnumerator CoCheckWord()
+    {
+        yield return new WaitForSeconds(0.5f);
         string word = "";
-        foreach(CharObject charObject in charObjects)
+        foreach (CharObject charObject in charObjects)
         {
             word += charObject.character;
         }
 
-        if(word == words[currentWord].word)
+        if (word == words[currentWord].word)
         {
             currentWord++;
             ShowScramble(currentWord);
-
-            return true;
         }
-
-        return false;
     }
 }
