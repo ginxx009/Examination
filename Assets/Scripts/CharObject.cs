@@ -1,18 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class CharObject : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public char character;
+    public Text text;
+    public RectTransform rectTransform;
+    public int index;
 
-    // Update is called once per frame
-    void Update()
+    [Header("Apperance")]
+    public Color normalColor;
+    public Color selectedColor;
+
+    public CharObject Init(char c)
     {
-        
+        character = c;
+        text.text = c.ToString();
+        gameObject.SetActive(true);
+        return this;
     }
 }
