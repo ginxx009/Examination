@@ -10,14 +10,18 @@ public class Result
 
 
     [Header("REF IU")]
-    public Text textTime;
-    public Text textTotalScore;
+    public UILabel textTime;
+    public UILabel textTotalScore;
+
 
     [Header("REF RESULT SCREEN")]
     public GameObject resultCanvas;
-    public Image[] stars;
-    public Text textResultScore;
-    public Text textInfo;
+    //public Image[] stars;
+    //public Text textResultScore;
+    //public Text textInfo;
+    public UISprite[] stars;
+    public UILabel textResultScore;
+    public UILabel textInfo;
 
     [Space(10)]
     public Color starOn;

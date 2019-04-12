@@ -97,6 +97,19 @@ MonoBehaviour:
     paddingRight: 3
     paddingTop: 11
     paddingBottom: 0
+  - name: title
+    x: 625
+    y: 113
+    width: 225
+    height: 114
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 47
+    paddingBottom: 64
   mPixelSize: 1
   mReplacement: {fileID: 0}
   mCoordinates: 0
