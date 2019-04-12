@@ -12,6 +12,31 @@ public class Result
     [Header("REF IU")]
     public Text textTime;
     public Text textTotalScore;
+
+    [Header("REF RESULT SCREEN")]
+    public GameObject resultCanvas;
+    public Image[] stars;
+    public Text textResultScore;
+    public Text textInfo;
+
+    [Space(10)]
+    public Color starOn;
+    public Color starOff;
+
+    public void ShowResult()
+    {
+        textResultScore.text = totalScore.ToString();
+        textInfo.text = "You finished " + WordScramble.main.words.Length + " questions.";
+
+        int allTimeLimit = WordScramble.main.GetAllTimeLimit();
+
+        for(int i = 0; i < stars.Length; i++)
+        {
+            stars[i].color = totalScore >= allTimeLimit / (3 - 1) ? starOn : starOff;
+        }
+
+        resultCanvas.SetActive(true);
+    }
 }
 
 
@@ -58,6 +83,7 @@ public class WordScramble : MonoBehaviour
     public Result result;
 
     [Header("UI REFERENCE")]
+    public GameObject wordCanvas;
     public CharObject prefab;
     public Transform container;
     public float space;
@@ -112,6 +138,17 @@ public class WordScramble : MonoBehaviour
         }
     }
 
+    public int GetAllTimeLimit()
+    {
+        float result = 0;
+        foreach(Word w in words)
+        {
+            result += w.timeLimit / 2;
+        }
+
+        return Mathf.RoundToInt(result);
+    }
+
     /// <summary>
     /// Show a random word to the screen
     /// </summary>
@@ -132,9 +169,12 @@ public class WordScramble : MonoBehaviour
             Destroy(child.gameObject);
         }
         //WORDS FINISHED
+        //SHOW RESULT SCREEN
         if(index > words.Length - 1)
         {
-            Debug.LogError("Index out of range. Please enter range between 0 to " + (words.Length - 1).ToString());
+            result.ShowResult();
+            wordCanvas.SetActive(false);
+            //Debug.LogError("Index out of range. Please enter range between 0 to " + (words.Length - 1).ToString());
             return;
         }
 
