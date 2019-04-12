@@ -32,7 +32,7 @@ public class Result
 
         for(int i = 0; i < stars.Length; i++)
         {
-            stars[i].color = totalScore >= allTimeLimit / (3 - 1) ? starOn : starOff;
+            stars[i].color = totalScore >= allTimeLimit / (3 - i) ? starOn : starOff;
         }
 
         resultCanvas.SetActive(true);
