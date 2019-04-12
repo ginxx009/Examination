@@ -92,7 +92,6 @@ public class WordScramble : MonoBehaviour
     List<CharObject> charObjects = new List<CharObject>();
     CharObject firstSelected;
 
-
     public int currentWord;
 
     public static WordScramble main;
@@ -120,7 +119,9 @@ public class WordScramble : MonoBehaviour
         result.textTotalScore.text = Mathf.RoundToInt(totalScore).ToString();
     }
 
-    
+    /// <summary>
+    /// Reposition the words and its spaces 
+    /// </summary>
     private void RepositionObject()
     {
         if(charObjects.Count == 0)
@@ -138,6 +139,10 @@ public class WordScramble : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Get the whole time limit of every word
+    /// </summary>
+    /// <returns></returns>
     public int GetAllTimeLimit()
     {
         float result = 0;
@@ -191,6 +196,11 @@ public class WordScramble : MonoBehaviour
         StartCoroutine(TimeLimit());
     }
 
+    /// <summary>
+    /// Swapping 1st element to 2nd element
+    /// </summary>
+    /// <param name="indexA"> index A</param>
+    /// <param name="indexB"> index B</param>
     public void Swap(int indexA, int indexB)
     {
         CharObject tmpA = charObjects[indexA];
@@ -203,6 +213,10 @@ public class WordScramble : MonoBehaviour
         CheckWord();
     }
 
+    /// <summary>
+    /// Selection of words
+    /// </summary>
+    /// <param name="charObject"></param>
     public void Select(CharObject charObject)
     {
         if (firstSelected)
@@ -218,16 +232,23 @@ public class WordScramble : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Unselect selected words
+    /// </summary>
     public void UnSelect()
     {
         firstSelected = null;
     }
-
+    
     public void CheckWord()
     {
         StartCoroutine(CoCheckWord());
     }
 
+    /// <summary>
+    /// Check every words
+    /// </summary>
+    /// <returns></returns>
     IEnumerator CoCheckWord()
     {
         yield return new WaitForSeconds(0.5f);
