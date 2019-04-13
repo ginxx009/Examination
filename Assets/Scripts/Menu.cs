@@ -6,8 +6,23 @@ public class Menu : MonoBehaviour
 {
     public GameObject[] menus;
     public GameObject credits;
+    public GameObject mode;
 
     public void Play()
+    {
+        foreach (GameObject menu in menus)
+        {
+            menu.SetActive(false);
+        }
+        mode.SetActive(true);
+    }
+
+    public void Endless()
+    {
+        SceneManager.LoadScene("Word Scramble", LoadSceneMode.Single);
+    }
+
+    public void Timer()
     {
         SceneManager.LoadScene("Word Scramble", LoadSceneMode.Single);
     }
