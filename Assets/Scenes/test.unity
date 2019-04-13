@@ -569,7 +569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textComp: {fileID: 1742832000}
   rowsToReadFrom: 00000000
-  FileName: dictionary
+  FileName: words
 --- !u!81 &1864102247
 AudioListener:
   m_ObjectHideFlags: 0

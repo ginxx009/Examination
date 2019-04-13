@@ -20,7 +20,7 @@ public class testScript : MonoBehaviour
 
     private void Start()
     {
-        myTextAsset = Resources.Load("dictionary") as TextAsset;
+        myTextAsset = Resources.Load("words") as TextAsset;
         
         string myString = myTextAsset.text;
     }
