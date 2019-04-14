@@ -127,17 +127,6 @@ public class testScript : MonoBehaviour
         result.textTotalScore.text = result.totalScore.ToString();
     }
 
-    public void readTextFile()
-    {
-        //textComp.text = "";
-        //rowsToReadFrom[0] = index;
-        //textArray = myTextAsset.text.Split('\n').ToList();
-        //textComp.text += textArray[rowsToReadFrom[0]] + "\n";
-
-        //index += 1;
-    }
-
-
     void Update()
     {
         RepositionObject();
@@ -210,14 +199,14 @@ public class testScript : MonoBehaviour
             return;
         }
 
-        char[] chars = words[index].GetString().ToCharArray();
-        foreach (char c in chars)
-        {
-            testObject clone = Instantiate(prefab.gameObject).GetComponent<testObject>();
-            clone.transform.SetParent(container);
+        //char[] chars = words[index].GetString().ToCharArray();
+        //foreach (char c in chars)
+        //{
+        //    testObject clone = Instantiate(prefab.gameObject).GetComponent<testObject>();
+        //    clone.transform.SetParent(container);
 
-            charObjects.Add(clone.Init(c));
-        }
+        //    charObjects.Add(clone.Init(c));
+        //}
 
         textComp.text = "";
 
@@ -228,6 +217,7 @@ public class testScript : MonoBehaviour
         string temp = textArray[rowsToReadFrom[0]];
         temp = System.Text.RegularExpressions.Regex.Replace(temp, @"\s", "");
         char[] chArr = temp.ToCharArray();
+        chArr = words[index].GetString().ToCharArray();
         foreach (char c in chArr)
         {
             testObject clone = Instantiate(prefab.gameObject).GetComponent<testObject>();
@@ -235,13 +225,10 @@ public class testScript : MonoBehaviour
 
             charObjects.Add(clone.Init(c));
 
-            Debug.Log(c);
+            //Debug.Log(c);
         }
 
-        
-
         indexx += 1;
-
 
         currentWord = index;
         StartCoroutine(TimeLimit());

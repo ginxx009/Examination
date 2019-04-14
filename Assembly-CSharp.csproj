@@ -203,6 +203,7 @@
     <Compile Include="Assets\Scripts\RepeatingBackground.cs" />
     <Compile Include="Assets\Scripts\ScrollingObject.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
+    <Compile Include="Assets\Scripts\testObject.cs" />
     <Compile Include="Assets\Scripts\testScript.cs" />
     <Compile Include="Assets\Scripts\WordScramble.cs" />
     <None Include="Assets\NGUI\Examples\Shaders\Unlit - Depth Cutout.shader" />
