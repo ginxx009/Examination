@@ -217,9 +217,19 @@ public class testScript : MonoBehaviour
         string temp = textArray[rowsToReadFrom[0]];
         temp = System.Text.RegularExpressions.Regex.Replace(temp, @"\s", "");
         char[] chArr = temp.ToCharArray();
-        chArr = words[index].GetString().ToCharArray();
+
+        string resultss = "";
+        for(int i = 0; i < chArr.Length; i++)
+        {
+            int ran = Random.Range(0, chArr.Length);
+            resultss += chArr[ran];
+        }
+
+        Debug.Log(resultss);
+
         foreach (char c in chArr)
         {
+
             testObject clone = Instantiate(prefab.gameObject).GetComponent<testObject>();
             clone.transform.SetParent(container);
 
@@ -234,6 +244,21 @@ public class testScript : MonoBehaviour
         StartCoroutine(TimeLimit());
 
     }
+
+    void Shuffle(string[] chArr)
+    {
+        //Shuffle
+        for (int i = 0; i < chArr.Length; i++)
+        {
+            string tmp = chArr[i].ToString();
+            int r = Random.Range(i, chArr.Length);
+            chArr[i] = chArr[r];
+            chArr[r] = tmp;
+
+        }
+        Debug.Log(chArr);
+    }
+
 
     /// <summary>
     /// Swapping 1st element to 2nd element
