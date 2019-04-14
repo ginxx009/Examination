@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class CharObject : MonoBehaviour
+public class testObject : MonoBehaviour
 {
     public char character;
     public Text text;
@@ -16,7 +16,7 @@ public class CharObject : MonoBehaviour
 
     bool isSelected = false;
 
-    public CharObject Init(char c)
+    public testObject Init(char c)
     {
         character = c;
         text.text = c.ToString();
@@ -31,12 +31,11 @@ public class CharObject : MonoBehaviour
         image.color = isSelected ? selectedColor : normalColor;
         if (isSelected)
         {
-            WordScramble.main.Select(this);
-
+            testScript.main.Select(this);
         }
         else
         {
-            WordScramble.main.UnSelect();
+            testScript.main.UnSelect();
         }
     }
 }
