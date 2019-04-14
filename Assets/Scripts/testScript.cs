@@ -218,21 +218,19 @@ public class testScript : MonoBehaviour
         temp = System.Text.RegularExpressions.Regex.Replace(temp, @"\s", "");
         char[] chArr = temp.ToCharArray();
 
-        string resultss = "";
-        for(int i = 0; i < chArr.Length; i++)
+        System.Random rnd = new System.Random();
+        char[] randomCharArray = chArr.OrderBy(x => rnd.Next()).ToArray();
+        string charResult = string.Join("", randomCharArray);
+
+
+
+        foreach (char c in charResult)
         {
-            int ran = Random.Range(0, chArr.Length);
-            resultss += chArr[ran];
-        }
-
-        Debug.Log(resultss);
-
-        foreach (char c in chArr)
-        {
-
+           
             testObject clone = Instantiate(prefab.gameObject).GetComponent<testObject>();
             clone.transform.SetParent(container);
 
+            
             charObjects.Add(clone.Init(c));
 
             //Debug.Log(c);
@@ -245,18 +243,33 @@ public class testScript : MonoBehaviour
 
     }
 
-    void Shuffle(string[] chArr)
-    {
-        //Shuffle
-        for (int i = 0; i < chArr.Length; i++)
-        {
-            string tmp = chArr[i].ToString();
-            int r = Random.Range(i, chArr.Length);
-            chArr[i] = chArr[r];
-            chArr[r] = tmp;
+    //void Shuffle(char[] chArr)
+    //{
+    //    string charResult = "";
+    //    //Shuffle
+    //    for (int i = 0; i < chArr.Length; i++)
+    //    {
+    //        int r = Random.Range(i, chArr.Length);
+    //        charResult += chArr[r];
+    //    }
+    //    Debug.Log(charResult);
+    //}
 
+    public static string Shuffle(string str)
+    {
+        System.Random random = new System.Random();
+        var array = str.ToCharArray();
+        for (int i = 0; i < array.Length; i++)
+        {
+            int j = random.Next(i, array.Length); // Don't select from the entire array on subsequent loops
+            char temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
         }
-        Debug.Log(chArr);
+
+        return string.Join("", array);
+
+        
     }
 
 
