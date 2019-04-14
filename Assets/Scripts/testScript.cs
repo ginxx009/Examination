@@ -206,13 +206,13 @@ public class testScript : MonoBehaviour
 
         //WORDS FINISHED
         //SHOW RESULT SCREEN
-        if (index > temp.Length - 1)
-        {
-            result.ShowResult();
-            wordCanvas.SetActive(false);
-            //Debug.LogError("Index out of range. Please enter range between 0 to " + (words.Length - 1).ToString());
-            return;
-        }
+        //if (index > temp.Length - 1)
+        //{
+        //    result.ShowResult();
+        //    wordCanvas.SetActive(false);
+        //    //Debug.LogError("Index out of range. Please enter range between 0 to " + (words.Length - 1).ToString());
+        //    return;
+        //}
 
         
 
