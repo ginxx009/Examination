@@ -158,13 +158,7 @@ MonoBehaviour:
   rowsToReadFrom: 00000000
   FileName: words
   textComp: {fileID: 1516861011}
-  words:
-  - word: PET
-    desiredRandom: 
-    timeLimit: 10
-  - word: PEST
-    desiredRandom: 
-    timeLimit: 10
+  words: []
   result:
     totalScore: 0
     textTime: {fileID: 162090748}
@@ -184,6 +178,7 @@ MonoBehaviour:
   space: 100
   lerpSpeed: 5
   currentWord: 0
+  timeLimit: 20
 --- !u!1 &75874881
 GameObject:
   m_ObjectHideFlags: 0
@@ -1177,7 +1172,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -25}
   m_SizeDelta: {x: -1, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &756158324
