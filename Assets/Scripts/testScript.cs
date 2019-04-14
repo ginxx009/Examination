@@ -31,7 +31,7 @@ public class testResults
     public void ShowResult()
     {
         textResultScore.text = totalScore.ToString();
-        textInfo.text = "You finished " + testScript.main.words.Length + " questions.";
+        textInfo.text = "You finished " + testScript.main.temp.Length + " questions.";
 
         int allTimeLimit = testScript.main.GetAllTimeLimit();
 
@@ -43,40 +43,40 @@ public class testResults
         resultCanvas.SetActive(true);
     }
 }
-[System.Serializable]
-public class testWords
-{
-    public string word;
-    [Header("Leave empty if you want randomized")]
-    public string desiredRandom;
+//[System.Serializable]
+//public class testWords
+//{
+//    public string word;
+//    [Header("Leave empty if you want randomized")]
+//    public string desiredRandom;
 
-    [Space(10)]
-    public float timeLimit;
+//    [Space(10)]
+//    public float timeLimit;
 
-    public string GetString()
-    {
-        if (!string.IsNullOrEmpty(desiredRandom))
-        {
-            return desiredRandom;
-        }
+//    public string GetString()
+//    {
+//        if (!string.IsNullOrEmpty(desiredRandom))
+//        {
+//            return desiredRandom;
+//        }
         
-        string result = word;
+//        string result = word;
 
-        while (result == word)
-        {
-            result = "";
-            List<char> characters = new List<char>(word.ToCharArray());
-            while (characters.Count > 0)
-            {
-                int indexChar = Random.Range(0, characters.Count - 1);
-                result += characters[indexChar];
+//        while (result == word)
+//        {
+//            result = "";
+//            List<char> characters = new List<char>(word.ToCharArray());
+//            while (characters.Count > 0)
+//            {
+//                int indexChar = Random.Range(0, characters.Count - 1);
+//                result += characters[indexChar];
 
-                characters.RemoveAt(indexChar);
-            }
-        }
-        return result;
-    }
-}
+//                characters.RemoveAt(indexChar);
+//            }
+//        }
+//        return result;
+//    }
+//}
 
 
 public class testScript : MonoBehaviour
@@ -89,9 +89,7 @@ public class testScript : MonoBehaviour
     private TextAsset myTextAsset;
     private int indexx = 0;
     
-
-
-    public testWords[] words;
+    //public testWords[] words;
 
     [Space(10)]
     public testResults result;
@@ -110,8 +108,14 @@ public class testScript : MonoBehaviour
 
     public static testScript main;
 
+    public float timeLimit;
+
     private float totalScore;
 
+    public string temp;
+    private string charResult;
+    private char[] chArr;
+    private char[] randomCharArray;
 
     private void Awake()
     {
@@ -162,10 +166,7 @@ public class testScript : MonoBehaviour
     public int GetAllTimeLimit()
     {
         float result = 0;
-        foreach (testWords w in words)
-        {
-            result += w.timeLimit / 2;
-        }
+        result += timeLimit / 2;
 
         return Mathf.RoundToInt(result);
     }
@@ -175,7 +176,7 @@ public class testScript : MonoBehaviour
     /// </summary>
     public void ShowScramble()
     {
-        ShowScramble(Random.Range(0, words.Length - 1));
+        ShowScramble(Random.Range(0, temp.Length - 1));
     }
 
     /// <summary>
@@ -184,19 +185,11 @@ public class testScript : MonoBehaviour
     /// <param name="index"> index of the element</param>
     public void ShowScramble(int index)
     {
+        
         charObjects.Clear();
         foreach (Transform child in container)
         {
             Destroy(child.gameObject);
-        }
-        //WORDS FINISHED
-        //SHOW RESULT SCREEN
-        if (index > words.Length - 1)
-        {
-            result.ShowResult();
-            wordCanvas.SetActive(false);
-            //Debug.LogError("Index out of range. Please enter range between 0 to " + (words.Length - 1).ToString());
-            return;
         }
 
         textComp.text = "";
@@ -205,19 +198,31 @@ public class testScript : MonoBehaviour
         textArray = myTextAsset.text.Split('\n').ToList();
         textComp.text += textArray[rowsToReadFrom[0]];
 
-        string temp = textArray[rowsToReadFrom[0]];
+        temp = textArray[rowsToReadFrom[0]];
         temp = System.Text.RegularExpressions.Regex.Replace(temp, @"\s", "");
-        char[] chArr = temp.ToCharArray();
+        chArr = temp.ToCharArray();
+
+        //WORDS FINISHED
+        //SHOW RESULT SCREEN
+        if (index > temp.Length - 1)
+        {
+            result.ShowResult();
+            wordCanvas.SetActive(false);
+            //Debug.LogError("Index out of range. Please enter range between 0 to " + (words.Length - 1).ToString());
+            return;
+        }
+
+        
 
         //Randomize
         System.Random rnd = new System.Random();
-        char[] randomCharArray = chArr.OrderBy(x => rnd.Next()).ToArray();
-        string charResult = string.Join("", randomCharArray);
+        randomCharArray = chArr.OrderBy(x => rnd.Next()).ToArray();
+        charResult = string.Join("", randomCharArray);
 
 
         foreach (char c in charResult)
         {
-           
+
             testObject clone = Instantiate(prefab.gameObject).GetComponent<testObject>();
             clone.transform.SetParent(container);
 
@@ -301,7 +306,7 @@ public class testScript : MonoBehaviour
             yield break;
         }
 
-        if (word == words[currentWord].word)
+        if(word == temp)//if (word == words[currentWord].word)
         {
             currentWord++;
             result.totalScore += Mathf.RoundToInt(timeLimit);
@@ -311,22 +316,22 @@ public class testScript : MonoBehaviour
             ShowScramble(currentWord);
         }
     }
-    float timeLimit;
+    float timelimit;
     IEnumerator TimeLimit()
     {
-        timeLimit = words[currentWord].timeLimit;
-        result.textTime.text = Mathf.RoundToInt(timeLimit).ToString();
+        timelimit = timeLimit;
+        result.textTime.text = Mathf.RoundToInt(timelimit).ToString();
 
         int myWord = currentWord;
 
         yield return new WaitForSeconds(1f);
 
-        while (timeLimit > 0)
+        while (timelimit > 0)
         {
             if (myWord != currentWord) { yield break; }
 
-            timeLimit -= Time.deltaTime;
-            result.textTime.text = Mathf.RoundToInt(timeLimit).ToString();
+            timelimit -= Time.deltaTime;
+            result.textTime.text = Mathf.RoundToInt(timelimit).ToString();
             yield return null;
         }
         CheckWord();
