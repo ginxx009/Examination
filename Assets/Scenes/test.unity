@@ -158,7 +158,6 @@ MonoBehaviour:
   rowsToReadFrom: 00000000
   FileName: words
   textComp: {fileID: 1516861011}
-  words: []
   result:
     totalScore: 0
     textTime: {fileID: 162090748}
@@ -179,6 +178,7 @@ MonoBehaviour:
   lerpSpeed: 5
   currentWord: 0
   timeLimit: 20
+  temp: 
 --- !u!1 &75874881
 GameObject:
   m_ObjectHideFlags: 0
@@ -1836,7 +1836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1516861011
 MonoBehaviour:
   m_ObjectHideFlags: 0

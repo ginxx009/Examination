@@ -19,7 +19,7 @@ public class Menu : MonoBehaviour
 
     public void Endless()
     {
-        SceneManager.LoadScene("Word Scramble", LoadSceneMode.Single);
+        SceneManager.LoadScene("test", LoadSceneMode.Single);
     }
 
     public void Timer()
