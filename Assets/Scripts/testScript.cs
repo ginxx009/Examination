@@ -29,7 +29,7 @@ public class testResults
     public void ShowResult()
     {
         textResultScore.text = totalScore.ToString();
-        textInfo.text = "You finished " + testScript.main.temp.Length + " questions.";
+        textInfo.text = "GAME OVER";
 
         int allTimeLimit = testScript.main.GetAllTimeLimit();
 
@@ -204,18 +204,6 @@ public class testScript : MonoBehaviour
         temp = System.Text.RegularExpressions.Regex.Replace(temp, @"\s", "");
         chArr = temp.ToCharArray();
 
-        //WORDS FINISHED
-        //SHOW RESULT SCREEN
-        //if (index > temp.Length - 1)
-        //{
-        //    result.ShowResult();
-        //    wordCanvas.SetActive(false);
-        //    //Debug.LogError("Index out of range. Please enter range between 0 to " + (words.Length - 1).ToString());
-        //    return;
-        //}
-
-        
-
         //Randomize
         System.Random rnd = new System.Random();
         randomCharArray = chArr.OrderBy(x => rnd.Next()).ToArray();
@@ -301,10 +289,14 @@ public class testScript : MonoBehaviour
             word += charObject.character;
         }
 
-        if (timeLimit <= 0)
+        if (timelimit <= 0)
         {
-            currentWord++;
-            ShowScramble(currentWord);
+            //WORDS FINISHED
+            //SHOW RESULT SCREEN
+           
+            result.ShowResult();
+            wordCanvas.SetActive(false);
+            //Debug.LogError("Index out of range. Please enter range between 0 to " + (words.Length - 1).ToString());
             yield break;
         }
 
@@ -360,5 +352,11 @@ public class testScript : MonoBehaviour
     public void Home()
     {
         SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+    }
+
+    public void Retry()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
     }
 }
