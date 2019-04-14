@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -17,9 +18,6 @@ public class testResults
 
     [Header("REF RESULT SCREEN")]
     public GameObject resultCanvas;
-    //public Image[] stars;
-    //public Text textResultScore;
-    //public Text textInfo;
     public UISprite[] stars;
     public UILabel textResultScore;
     public UILabel textInfo;
@@ -86,10 +84,7 @@ public class testScript : MonoBehaviour
     public string FileName;
     public UILabel textComp;
 
-    private TextAsset myTextAsset;
-    private int indexx = 0;
-    
-    //public testWords[] words;
+   
 
     [Space(10)]
     public testResults result;
@@ -110,12 +105,19 @@ public class testScript : MonoBehaviour
 
     public float timeLimit;
 
+    private bool gamepaused = false;
+    private int pauseCounter = 0; 
+
     private float totalScore;
 
     public string temp;
     private string charResult;
     private char[] chArr;
     private char[] randomCharArray;
+
+    private TextAsset myTextAsset;
+    private int indexx = 0;
+
 
     private void Awake()
     {
@@ -167,7 +169,7 @@ public class testScript : MonoBehaviour
     {
         float result = 0;
         result += timeLimit / 2;
-
+        
         return Mathf.RoundToInt(result);
     }
 
@@ -309,7 +311,7 @@ public class testScript : MonoBehaviour
         if(word == temp)//if (word == words[currentWord].word)
         {
             currentWord++;
-            result.totalScore += Mathf.RoundToInt(timeLimit);
+            result.totalScore += Mathf.RoundToInt(timelimit);
 
             //StopCoroutine(TimeLimit());
 
@@ -330,10 +332,33 @@ public class testScript : MonoBehaviour
         {
             if (myWord != currentWord) { yield break; }
 
-            timelimit -= Time.deltaTime;
-            result.textTime.text = Mathf.RoundToInt(timelimit).ToString();
+            if (!gamepaused)
+            {
+                timelimit -= Time.deltaTime;
+            
+                result.textTime.text = Mathf.RoundToInt(timelimit).ToString();
+
+            }
             yield return null;
         }
         CheckWord();
+    }
+
+    public void Pause()
+    {
+        pauseCounter += 1;
+        gamepaused = true;
+        container.gameObject.SetActive(false);
+        if (pauseCounter > 1)
+        {
+            gamepaused = false;
+            pauseCounter = 0;
+            container.gameObject.SetActive(true);
+        }
+    }
+
+    public void Home()
+    {
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
 }
