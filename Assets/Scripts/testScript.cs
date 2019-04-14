@@ -22,6 +22,10 @@ public class testResults
     public UILabel textResultScore;
     public UILabel textInfo;
 
+    [Header("HIGHSCORE")]
+    public UILabel highscore;
+    public UILabel highscoreResult;
+
     [Space(10)]
     public Color starOn;
     public Color starOff;
@@ -31,6 +35,8 @@ public class testResults
         textResultScore.text = totalScore.ToString();
         textInfo.text = "GAME OVER";
 
+        PlayerPrefs.SetInt("hscore", totalScore);
+
         int allTimeLimit = testScript.main.GetAllTimeLimit();
 
         for (int i = 0; i < stars.Length; i++)
@@ -38,8 +44,17 @@ public class testResults
             stars[i].color = totalScore >= allTimeLimit / (3 - i) ? starOn : starOff;
         }
 
+        
+
         resultCanvas.SetActive(true);
     }
+
+    public void HighScore()
+    {
+        int hs = PlayerPrefs.GetInt("hscore", totalScore);
+        highscore.text = hs.ToString();
+    }
+
 }
 //[System.Serializable]
 //public class testWords
@@ -131,6 +146,8 @@ public class testScript : MonoBehaviour
 
         ShowScramble(currentWord);
         result.textTotalScore.text = result.totalScore.ToString();
+
+        result.HighScore();
     }
 
     void Update()
@@ -358,5 +375,12 @@ public class testScript : MonoBehaviour
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
+    }
+
+    public int HighScore(int h_score)
+    {
+        PlayerPrefs.GetInt("hscore",h_score);
+
+        return h_score;
     }
 }
