@@ -6,8 +6,8 @@ public class Achievement : MonoBehaviour
 {
     public static Achievement instance = null;
 
-    public Text lbl;
-    public Button achievement;
+    public UILabel lbl;
+    public UISprite achievement;
     private void Awake()
     {
         if (instance == null)
