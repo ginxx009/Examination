@@ -244,6 +244,23 @@ public class testScript : MonoBehaviour
 
         indexx += 1;
 
+        
+        if (indexx == 5)
+        {
+            if (PlayerPrefs.HasKey("Achievement2Endless"))
+            {
+                Debug.Log("Already has keys");
+            }
+            else
+            {
+                Achievement.instance.lbl.text = "5 Correct Words!";
+                Achievement.instance.achievement.GetComponent<Animator>().Play("", 0, 0f);
+            }
+
+            PlayerPrefs.SetString("Achievement2Endless", "two");
+            PlayerPrefs.Save();
+        }
+
         currentWord = index;
         StartCoroutine(TimeLimit());
 

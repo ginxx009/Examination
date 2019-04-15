@@ -9,10 +9,12 @@ public class Menu : MonoBehaviour
     public GameObject mode;
 
 
-    //private void Start()
-    //{
-    //    PlayerPrefs.DeleteKey("Achievement1");
-    //}
+    private void Start()
+    {
+        //PlayerPrefs.DeleteKey("Achievement1");
+        //PlayerPrefs.DeleteKey("Achievement2");
+        //PlayerPrefs.DeleteKey("Achievement2Endless");
+    }
 
     public void Play()
     {
@@ -25,13 +27,14 @@ public class Menu : MonoBehaviour
 
     public void Endless()
     {
-        
+        Achievement.instance.lbl.text = "First Game!";
         SceneManager.LoadScene("Word Scramble Endless", LoadSceneMode.Single);
-        
+
         if (PlayerPrefs.HasKey("Achievement1"))
             Debug.Log("already has key");
         else
-            StartCoroutine(Achievement.instance.ShowAchievement());
+            
+            Achievement.instance.achievement.GetComponent<Animator>().Play("", 0, 0f);
 
         PlayerPrefs.SetString("Achievement1", "one");
         PlayerPrefs.Save();
@@ -40,13 +43,14 @@ public class Menu : MonoBehaviour
 
     public void Timer()
     {
-        
+        Achievement.instance.lbl.text = "First Game!";
         SceneManager.LoadScene("Word Scramble Time", LoadSceneMode.Single);
-        
+
         if (PlayerPrefs.HasKey("Achievement1"))
             Debug.Log("already has key");
         else
-            StartCoroutine(Achievement.instance.ShowAchievement());
+            
+            Achievement.instance.achievement.GetComponent<Animator>().Play("", 0, 0f);
 
         PlayerPrefs.SetString("Achievement1", "one");
         PlayerPrefs.Save();

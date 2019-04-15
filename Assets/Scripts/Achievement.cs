@@ -18,16 +18,4 @@ public class Achievement : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
-    {
-        achievement.GetComponent<Animator>().enabled = false;
-    }
-
-    public IEnumerator ShowAchievement()
-    {
-        achievement.GetComponent<Animator>().enabled = true;
-
-        yield return null;
-
-    }
 }

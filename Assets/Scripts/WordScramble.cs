@@ -223,8 +223,18 @@ public class WordScramble : MonoBehaviour
         //Show achievement if reached level 5
         if (index == 5)
         {
-            Achievement.instance.lbl.text = "Reached Level 5!";
-            Achievement.instance.achievement.GetComponent<Animator>().Play("", 0, 0f);
+            if (PlayerPrefs.HasKey("Achievement2"))
+            {
+                Debug.Log("Already has keys");
+            }
+            else
+            {
+                Achievement.instance.lbl.text = "Reached Level 5!";
+                Achievement.instance.achievement.GetComponent<Animator>().Play("", 0, 0f);
+            }
+
+            PlayerPrefs.SetString("Achievement2", "two");
+            PlayerPrefs.Save();
         }
 
         //WORDS FINISHED
