@@ -220,6 +220,13 @@ public class WordScramble : MonoBehaviour
             }
         }
 
+        //Show achievement if reached level 5
+        if (index == 5)
+        {
+            Achievement.instance.lbl.text = "Reached Level 5!";
+            Achievement.instance.achievement.GetComponent<Animator>().Play("", 0, 0f);
+        }
+
         //WORDS FINISHED
         //SHOW RESULT SCREEN
         if (index > words.Length - 1)
@@ -318,6 +325,9 @@ public class WordScramble : MonoBehaviour
         SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
 
+    /// <summary>
+    /// Proceed to next stage / Game over
+    /// </summary>
     public void NextStage()
     {
         if (result.game_over)

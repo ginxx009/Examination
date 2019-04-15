@@ -8,6 +8,12 @@ public class Menu : MonoBehaviour
     public GameObject credits;
     public GameObject mode;
 
+
+    //private void Start()
+    //{
+    //    PlayerPrefs.DeleteKey("Achievement1");
+    //}
+
     public void Play()
     {
         foreach (GameObject menu in menus)
@@ -19,12 +25,32 @@ public class Menu : MonoBehaviour
 
     public void Endless()
     {
+        
         SceneManager.LoadScene("Word Scramble Endless", LoadSceneMode.Single);
+        
+        if (PlayerPrefs.HasKey("Achievement1"))
+            Debug.Log("already has key");
+        else
+            StartCoroutine(Achievement.instance.ShowAchievement());
+
+        PlayerPrefs.SetString("Achievement1", "one");
+        PlayerPrefs.Save();
+
     }
 
     public void Timer()
     {
+        
         SceneManager.LoadScene("Word Scramble Time", LoadSceneMode.Single);
+        
+        if (PlayerPrefs.HasKey("Achievement1"))
+            Debug.Log("already has key");
+        else
+            StartCoroutine(Achievement.instance.ShowAchievement());
+
+        PlayerPrefs.SetString("Achievement1", "one");
+        PlayerPrefs.Save();
+
     }
 
     public void Credits()

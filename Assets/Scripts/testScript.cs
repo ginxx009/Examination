@@ -379,6 +379,9 @@ public class testScript : MonoBehaviour
         SceneManager.LoadScene(currentSceneName);
     }
 
+    /// <summary>
+    /// Information About the Mode
+    /// </summary>
     public void InfoMode()
     {
         lblInfoCounter += 1;
