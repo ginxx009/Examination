@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -99,6 +100,9 @@ public class WordScramble : MonoBehaviour
     public int currentWord;
 
     public static WordScramble main;
+
+    private bool gamepaused = false;
+    private int pauseCounter = 0;
 
     private float totalScore;
 
@@ -293,11 +297,31 @@ public class WordScramble : MonoBehaviour
         while(timeLimit > 0)
         {
             if(myWord != currentWord){ yield break; }
-
-            timeLimit -= Time.deltaTime;
-            result.textTime.text = Mathf.RoundToInt(timeLimit).ToString();
+            if (!gamepaused)
+            {
+                timeLimit -= Time.deltaTime;
+                result.textTime.text = Mathf.RoundToInt(timeLimit).ToString();
+            }
             yield return null;
         }
         CheckWord();
+    }
+
+    public void Pause()
+    {
+        pauseCounter += 1;
+        gamepaused = true;
+        container.gameObject.SetActive(false);
+        if (pauseCounter > 1)
+        {
+            gamepaused = false;
+            pauseCounter = 0;
+            container.gameObject.SetActive(true);
+        }
+    }
+
+    public void Home()
+    {
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
 }
