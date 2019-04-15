@@ -119,6 +119,9 @@ public class testScript : MonoBehaviour
 
     public float timeLimit;
 
+    public UILabel lbl_info;
+    private int lblInfoCounter;
+
     private bool gamepaused = false;
     private int pauseCounter = 0; 
 
@@ -374,5 +377,16 @@ public class testScript : MonoBehaviour
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
+    }
+
+    public void InfoMode()
+    {
+        lblInfoCounter += 1;
+        lbl_info.text = "This mode is an endless word puzzle";
+        if (lblInfoCounter == 2)
+        {
+            lblInfoCounter = 0;
+            lbl_info.text = "";
+        }
     }
 }

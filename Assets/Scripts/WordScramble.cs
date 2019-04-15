@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Result
 {
     public int totalScore = 0;
-
+    public bool game_over = false;
 
     [Header("REF IU")]
     public UILabel textTime;
@@ -46,7 +46,7 @@ public class Result
     {
        
         textResultScore.text = totalScore.ToString();
-        textInfo.text = "You finished the stage!";
+        textInfo.text = "Stage " + WordScramble.main.currentWord + " Cleared!";
 
         foreach (UISprite star in stars)
         {
@@ -55,14 +55,16 @@ public class Result
         nextStage.gameObject.SetActive(true);
 
         if (show)
-        {
             resultCanvas.SetActive(true);
-        }
         else
-        {
             resultCanvas.SetActive(false);
-        }
+    }
 
+    public void GameOver()
+    {
+        textResultScore.text = totalScore.ToString();
+        textInfo.text = "Better luck next time!";
+        game_over = true;
     }
 }
 
@@ -123,6 +125,8 @@ public class WordScramble : MonoBehaviour
 
     public static WordScramble main;
 
+    public UILabel lbl_info;
+    private int lblInfoCounter;
 
     private bool gamepaused = false;
     private int pauseCounter = 0;
@@ -206,10 +210,16 @@ public class WordScramble : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        //PROCEED TO NEXT STAGE IF TRUE
         if (index >= 1)
         {
             NextStage();
+            if (timeLimit <= 0)
+            {
+                result.GameOver();
+            }
         }
+
         //WORDS FINISHED
         //SHOW RESULT SCREEN
         if (index > words.Length - 1)
@@ -275,12 +285,18 @@ public class WordScramble : MonoBehaviour
     {
         firstSelected = null;
     }
-    
+
+    /// <summary>
+    /// Call Checkword Coroutine
+    /// </summary>
     public void CheckWord()
     {
         StartCoroutine(CoCheckWord());
     }
 
+    /// <summary>
+    /// Pause the timer
+    /// </summary>
     public void Pause()
     {
         pauseCounter += 1;
@@ -294,6 +310,9 @@ public class WordScramble : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Go back to the Home Scene
+    /// </summary>
     public void Home()
     {
         SceneManager.LoadScene("Menu", LoadSceneMode.Single);
@@ -301,18 +320,45 @@ public class WordScramble : MonoBehaviour
 
     public void NextStage()
     {
-        nextCounter += 1;
-        gamepaused = true;
-        result.ShowResultEveryStage(true);
-        wordCanvas.SetActive(false);
-        if (nextCounter == 2)
+        if (result.game_over)
         {
-            gamepaused = false;
-            wordCanvas.SetActive(true);
-            nextCounter = 0;
-            result.ShowResultEveryStage(false);
+            if (result.totalScore == 0)
+            {
+                result.GameOver();
+            }
+            //let's reload scene
+            string currentSceneName = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene(currentSceneName);
         }
-        Debug.Log("Next Stage!");
+        else
+        {
+            nextCounter += 1;
+            gamepaused = true;
+            result.ShowResultEveryStage(true);
+            wordCanvas.SetActive(false);
+
+            if (nextCounter == 2)
+            {
+                gamepaused = false;
+                wordCanvas.SetActive(true);
+                nextCounter = 0;
+                result.ShowResultEveryStage(false);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Display Information about the Mode
+    /// </summary>
+    public void InfoMode()
+    {
+        lblInfoCounter += 1;
+        lbl_info.text = "This mode is only upto level 15";
+        if (lblInfoCounter == 2)
+        {
+            lblInfoCounter = 0;
+            lbl_info.text = "";
+        }
     }
 
     /// <summary>
@@ -335,6 +381,7 @@ public class WordScramble : MonoBehaviour
             ShowScramble(currentWord);
             yield break;
         }
+
         if (word == words[currentWord].word)
         {
             currentWord++;
@@ -365,5 +412,6 @@ public class WordScramble : MonoBehaviour
         }
         CheckWord();
     }
+
 
 }
