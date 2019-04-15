@@ -158,6 +158,7 @@ MonoBehaviour:
   rowsToReadFrom: 00000000
   FileName: words
   hint: {fileID: 1516861011}
+  lbl_hint: {fileID: 1855787228}
   hintObj: {fileID: 2009451204}
   result:
     totalScore: 0
@@ -3460,7 +3461,7 @@ GameObject:
   - component: {fileID: 1855787227}
   - component: {fileID: 1855787228}
   m_Layer: 5
-  m_Name: Label
+  m_Name: lbl_hint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
