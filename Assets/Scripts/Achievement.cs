@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 public class Achievement : MonoBehaviour
 {
     public static Achievement instance = null;
@@ -16,6 +17,17 @@ public class Achievement : MonoBehaviour
             Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
+        //SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
 
+    private void Start()
+    {
+        StartCoroutine(LoadNextScene());
+    }
+
+    IEnumerator LoadNextScene()
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("Menu");
+    }
 }

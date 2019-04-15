@@ -144,7 +144,7 @@ Transform:
   - {fileID: 1593028385}
   - {fileID: 1498489229}
   m_Father: {fileID: 1384728687}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &177519016
 GameObject:
@@ -1115,7 +1115,7 @@ Transform:
   - {fileID: 435929565}
   - {fileID: 1462096580}
   m_Father: {fileID: 1384728687}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &638079961
 GameObject:
@@ -1523,7 +1523,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 735008262}
-  - component: {fileID: 735008261}
   m_Layer: 0
   m_Name: Achievement
   m_TagString: Untagged
@@ -1531,20 +1530,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &735008261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 735008260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16d1b19636ff7194f8e5565406f589d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lbl: {fileID: 0}
-  achievement: {fileID: 0}
 --- !u!4 &735008262
 Transform:
   m_ObjectHideFlags: 0
@@ -1675,7 +1660,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1384728687}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &826426645
 MonoBehaviour:
@@ -1710,7 +1695,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 784
   mHeight: 516
-  mDepth: 2
+  mDepth: 1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -1740,14 +1725,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 890525143}
-  - component: {fileID: 890525144}
   m_Layer: 5
   m_Name: Achievement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &890525143
 Transform:
   m_ObjectHideFlags: 0
@@ -1763,20 +1747,6 @@ Transform:
   m_Father: {fileID: 1384728687}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &890525144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 890525142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16d1b19636ff7194f8e5565406f589d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lbl: {fileID: 699239355}
-  achievement: {fileID: 1811162904}
 --- !u!1 &1068901381
 GameObject:
   m_ObjectHideFlags: 0
@@ -2202,10 +2172,10 @@ Transform:
   m_LocalScale: {x: 0.0018518518, y: 0.0018518518, z: 0.0018518518}
   m_Children:
   - {fileID: 890525143}
-  - {fileID: 826426644}
   - {fileID: 1992132152}
   - {fileID: 644736}
   - {fileID: 546276229}
+  - {fileID: 826426644}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3312,7 +3282,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1384728687}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1992132153
 MonoBehaviour:
