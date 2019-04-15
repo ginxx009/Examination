@@ -98,7 +98,12 @@ public class testScript : MonoBehaviour
     public static List<string> textArray;
     public int[] rowsToReadFrom = new int[1] { 0 };
     public string FileName;
-    public UILabel textComp;
+
+    public UILabel hint;
+    public UILabel lbl_hint;
+    private bool usedHint;
+    private float timerHint = 60;
+    public GameObject hintObj;
 
     [Space(10)]
     public testResults result;
@@ -162,6 +167,23 @@ public class testScript : MonoBehaviour
         result.textTotalScore.text = Mathf.RoundToInt(totalScore).ToString();
 
         result.texthighscore.text = PlayerPrefs.GetInt("hscore",0).ToString();
+
+        if (usedHint)
+        {
+            timerHint -= Time.deltaTime;
+
+            string seconds = (timerHint % 60).ToString("00");
+
+            lbl_hint.text = seconds;
+
+            if (timerHint <= 0)
+            {
+                usedHint = false;
+                hintObj.GetComponent<UISprite>().enabled = true;
+                timerHint = 60;
+                lbl_hint.text = "HINT";
+            }
+        }
     }
 
     /// <summary>
@@ -217,11 +239,10 @@ public class testScript : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        textComp.text = "";
-
+        //textComp.text = "";
         rowsToReadFrom[0] = indexx;
         textArray = myTextAsset.text.Split('\n').ToList();
-        textComp.text += textArray[rowsToReadFrom[0]];
+        //textComp.text += textArray[rowsToReadFrom[0]];
 
         temp = textArray[rowsToReadFrom[0]];
         temp = System.Text.RegularExpressions.Regex.Replace(temp, @"\s", "");
@@ -342,7 +363,7 @@ public class testScript : MonoBehaviour
         {
             currentWord++;
             result.totalScore += Mathf.RoundToInt(timelimit);
-
+            hint.text = "";
             ShowScramble(currentWord);
         }
     }
@@ -372,6 +393,9 @@ public class testScript : MonoBehaviour
         CheckWord();
     }
 
+    /// <summary>
+    /// Pause the game
+    /// </summary>
     public void Pause()
     {
         pauseCounter += 1;
@@ -385,11 +409,17 @@ public class testScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Go home
+    /// </summary>
     public void Home()
     {
         SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
 
+    /// <summary>
+    /// Reload Scene
+    /// </summary>
     public void Retry()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
@@ -408,5 +438,25 @@ public class testScript : MonoBehaviour
             lblInfoCounter = 0;
             lbl_info.text = "";
         }
+    }
+
+    /// <summary>
+    /// Hint of the whole word!
+    /// </summary>
+    public void Hint()
+    {
+        hint.text = "";
+
+        hint.text = textArray[rowsToReadFrom[0]];
+        usedHint = true;
+        if (usedHint)
+        {
+            hintObj.GetComponent<UISprite>().enabled = false; 
+        }
+        else
+        {
+            hintObj.GetComponent<UISprite>().enabled = true;
+        }
+        
     }
 }

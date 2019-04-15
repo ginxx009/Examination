@@ -2363,6 +2363,7 @@ MonoBehaviour:
     timeLimit: 8
   result:
     totalScore: 0
+    game_over: 0
     textTime: {fileID: 1852587642}
     textTotalScore: {fileID: 740453460}
     resultCanvas: {fileID: 1771472706}
