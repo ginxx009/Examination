@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class testResults
 {
     public int totalScore = 0;
-
+    public int highscore;
 
     [Header("REF IU")]
     public UILabel textTime;
@@ -23,8 +23,8 @@ public class testResults
     public UILabel textInfo;
 
     [Header("HIGHSCORE")]
-    public UILabel highscore;
-    public UILabel highscoreResult;
+    public UILabel texthighscore;
+    public UILabel texthighscoreResult;
 
     [Space(10)]
     public Color starOn;
@@ -35,7 +35,16 @@ public class testResults
         textResultScore.text = totalScore.ToString();
         textInfo.text = "GAME OVER";
 
-        PlayerPrefs.SetInt("hscore", totalScore);
+        highscore = PlayerPrefs.GetInt("hscore",0);
+
+        if (totalScore > highscore)
+        {
+            PlayerPrefs.SetInt("hscore", totalScore);
+            PlayerPrefs.Save();
+
+            highscore = totalScore;
+            texthighscore.text = highscore.ToString();
+        }
 
         int allTimeLimit = testScript.main.GetAllTimeLimit();
 
@@ -48,13 +57,6 @@ public class testResults
 
         resultCanvas.SetActive(true);
     }
-
-    public void HighScore()
-    {
-        int hs = PlayerPrefs.GetInt("hscore", totalScore);
-        highscore.text = hs.ToString();
-    }
-
 }
 //[System.Serializable]
 //public class testWords
@@ -133,6 +135,7 @@ public class testScript : MonoBehaviour
     private TextAsset myTextAsset;
     private int indexx = 0;
 
+    private int hscore = 0;
 
     private void Awake()
     {
@@ -147,7 +150,8 @@ public class testScript : MonoBehaviour
         ShowScramble(currentWord);
         result.textTotalScore.text = result.totalScore.ToString();
 
-        result.HighScore();
+        hscore = PlayerPrefs.GetInt("hscore", hscore);
+        result.texthighscore.text = hscore.ToString();
     }
 
     void Update()
@@ -156,6 +160,8 @@ public class testScript : MonoBehaviour
 
         totalScore = Mathf.Lerp(totalScore, result.totalScore, Time.deltaTime * 5);
         result.textTotalScore.text = Mathf.RoundToInt(totalScore).ToString();
+
+        result.texthighscore.text = PlayerPrefs.GetInt("hscore",0).ToString();
     }
 
     /// <summary>
@@ -375,12 +381,5 @@ public class testScript : MonoBehaviour
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
-    }
-
-    public int HighScore(int h_score)
-    {
-        PlayerPrefs.GetInt("hscore",h_score);
-
-        return h_score;
     }
 }
