@@ -17,12 +17,11 @@ public class Result
 
     [Header("REF RESULT SCREEN")]
     public GameObject resultCanvas;
-    //public Image[] stars;
-    //public Text textResultScore;
-    //public Text textInfo;
     public UISprite[] stars;
+    public UISprite nextStage;
     public UILabel textResultScore;
     public UILabel textInfo;
+
 
     [Space(10)]
     public Color starOn;
@@ -41,6 +40,29 @@ public class Result
         }
 
         resultCanvas.SetActive(true);
+    }
+
+    public void ShowResultEveryStage(bool show)
+    {
+       
+        textResultScore.text = totalScore.ToString();
+        textInfo.text = "You finished the stage!";
+
+        foreach (UISprite star in stars)
+        {
+            star.gameObject.SetActive(false);
+        }
+        nextStage.gameObject.SetActive(true);
+
+        if (show)
+        {
+            resultCanvas.SetActive(true);
+        }
+        else
+        {
+            resultCanvas.SetActive(false);
+        }
+
     }
 }
 
@@ -101,10 +123,12 @@ public class WordScramble : MonoBehaviour
 
     public static WordScramble main;
 
+
     private bool gamepaused = false;
     private int pauseCounter = 0;
 
     private float totalScore;
+    private int nextCounter = 0;
 
     private void Awake()
     {
@@ -181,13 +205,17 @@ public class WordScramble : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+
+        if (index >= 1)
+        {
+            NextStage();
+        }
         //WORDS FINISHED
         //SHOW RESULT SCREEN
-        if(index > words.Length - 1)
+        if (index > words.Length - 1)
         {
             result.ShowResult();
             wordCanvas.SetActive(false);
-            //Debug.LogError("Index out of range. Please enter range between 0 to " + (words.Length - 1).ToString());
             return;
         }
 
@@ -253,11 +281,45 @@ public class WordScramble : MonoBehaviour
         StartCoroutine(CoCheckWord());
     }
 
+    public void Pause()
+    {
+        pauseCounter += 1;
+        gamepaused = true;
+        container.gameObject.SetActive(false);
+        if (pauseCounter > 1)
+        {
+            gamepaused = false;
+            pauseCounter = 0;
+            container.gameObject.SetActive(true);
+        }
+    }
+
+    public void Home()
+    {
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+    }
+
+    public void NextStage()
+    {
+        nextCounter += 1;
+        gamepaused = true;
+        result.ShowResultEveryStage(true);
+        wordCanvas.SetActive(false);
+        if (nextCounter == 2)
+        {
+            gamepaused = false;
+            wordCanvas.SetActive(true);
+            nextCounter = 0;
+            result.ShowResultEveryStage(false);
+        }
+        Debug.Log("Next Stage!");
+    }
+
     /// <summary>
     /// Check every words
     /// </summary>
     /// <returns></returns>
-    IEnumerator CoCheckWord()
+    private IEnumerator CoCheckWord()
     {
         yield return new WaitForSeconds(0.5f);
 
@@ -273,19 +335,16 @@ public class WordScramble : MonoBehaviour
             ShowScramble(currentWord);
             yield break;
         }
-
         if (word == words[currentWord].word)
         {
             currentWord++;
             result.totalScore += Mathf.RoundToInt(timeLimit);
-           
-            //StopCoroutine(TimeLimit());
-
+            
             ShowScramble(currentWord);
         }
     }
     float timeLimit;
-    IEnumerator TimeLimit()
+    private IEnumerator TimeLimit()
     {
         timeLimit = words[currentWord].timeLimit;
         result.textTime.text = Mathf.RoundToInt(timeLimit).ToString();
@@ -307,21 +366,4 @@ public class WordScramble : MonoBehaviour
         CheckWord();
     }
 
-    public void Pause()
-    {
-        pauseCounter += 1;
-        gamepaused = true;
-        container.gameObject.SetActive(false);
-        if (pauseCounter > 1)
-        {
-            gamepaused = false;
-            pauseCounter = 0;
-            container.gameObject.SetActive(true);
-        }
-    }
-
-    public void Home()
-    {
-        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
-    }
 }
