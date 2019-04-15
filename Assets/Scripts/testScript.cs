@@ -170,18 +170,20 @@ public class testScript : MonoBehaviour
 
         if (usedHint)
         {
-            timerHint -= Time.deltaTime;
+            if (!gamepaused) { 
+                timerHint -= Time.deltaTime;
 
-            string seconds = (timerHint % 60).ToString("00");
+                string seconds = (timerHint % 60).ToString("00");
 
-            lbl_hint.text = seconds;
+                lbl_hint.text = seconds;
 
-            if (timerHint <= 0)
-            {
-                usedHint = false;
-                hintObj.GetComponent<UISprite>().enabled = true;
-                timerHint = 60;
-                lbl_hint.text = "HINT";
+                if (timerHint <= 0)
+                {
+                    usedHint = false;
+                    hintObj.GetComponent<UISprite>().enabled = true;
+                    timerHint = 60;
+                    lbl_hint.text = "HINT";
+                }
             }
         }
     }
