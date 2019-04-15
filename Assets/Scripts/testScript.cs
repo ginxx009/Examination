@@ -24,7 +24,6 @@ public class testResults
 
     [Header("HIGHSCORE")]
     public UILabel texthighscore;
-    public UILabel texthighscoreResult;
 
     [Space(10)]
     public Color starOn;
@@ -101,8 +100,6 @@ public class testScript : MonoBehaviour
     public string FileName;
     public UILabel textComp;
 
-   
-
     [Space(10)]
     public testResults result;
 
@@ -121,6 +118,8 @@ public class testScript : MonoBehaviour
     public static testScript main;
 
     public float timeLimit;
+
+    public Menu menu;
 
     private bool gamepaused = false;
     private int pauseCounter = 0; 
@@ -316,19 +315,15 @@ public class testScript : MonoBehaviour
         {
             //WORDS FINISHED
             //SHOW RESULT SCREEN
-           
             result.ShowResult();
             wordCanvas.SetActive(false);
-            //Debug.LogError("Index out of range. Please enter range between 0 to " + (words.Length - 1).ToString());
             yield break;
         }
 
-        if(word == temp)//if (word == words[currentWord].word)
+        if(word == temp)
         {
             currentWord++;
             result.totalScore += Mathf.RoundToInt(timelimit);
-
-            //StopCoroutine(TimeLimit());
 
             ShowScramble(currentWord);
         }
@@ -374,12 +369,14 @@ public class testScript : MonoBehaviour
 
     public void Home()
     {
-        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        //SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        menu.Home();
     }
 
     public void Retry()
     {
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(currentSceneName);
+        //string currentSceneName = SceneManager.GetActiveScene().name;
+        //SceneManager.LoadScene(currentSceneName);
+        menu.Retry();
     }
 }
