@@ -119,8 +119,6 @@ public class testScript : MonoBehaviour
 
     public float timeLimit;
 
-    public Menu menu;
-
     private bool gamepaused = false;
     private int pauseCounter = 0; 
 
@@ -369,14 +367,12 @@ public class testScript : MonoBehaviour
 
     public void Home()
     {
-        //SceneManager.LoadScene("Menu", LoadSceneMode.Single);
-        menu.Home();
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
 
     public void Retry()
     {
-        //string currentSceneName = SceneManager.GetActiveScene().name;
-        //SceneManager.LoadScene(currentSceneName);
-        menu.Retry();
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
     }
 }

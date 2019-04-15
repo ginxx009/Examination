@@ -9,9 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 60eb3b89b9332394e837b3ec5466f87e
   - enabled: 1
-    path: Assets/Scenes/Word Scramble.unity
+    path: Assets/Scenes/Word Scramble Time.unity
     guid: ae654fa3237b2a44aafec89f402b4a1b
   - enabled: 1
-    path: Assets/Scenes/test.unity
+    path: Assets/Scenes/Word Scramble Endless.unity
     guid: 092d48002150edd4baa610c44db36088
   m_configObjects: {}
